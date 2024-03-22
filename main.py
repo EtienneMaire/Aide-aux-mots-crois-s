@@ -1,10 +1,19 @@
 import pygame
 
-WIDTH = 400
-HEIGHT = 300
+WIDTH = 768
+HEIGHT = 512
 BACKGROUND = (0, 0, 0)
 
+dico = []
+
+def findWord():
+    pass
+
 def main():
+    f = open("dico.txt", "r")
+    dico = f.read().split('\n');
+    f.close()
+
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Aide aux mots croisés")
