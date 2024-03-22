@@ -1,10 +1,12 @@
 import pygame
 
-WIDTH = 768
-HEIGHT = 512
-BACKGROUND = (0, 0, 0)
+WIDTH = 1024
+HEIGHT = 768
+BACKGROUND = (200, 200, 200)
 
 dico = []
+White = (255, 255, 255)
+Gray = (128, 128, 128)
 
 def compareWords(word0, word1):
     if not (len(word0) == len(word1)):
@@ -39,12 +41,18 @@ def main():
 
     gameRunning = True
 
+    surface = screen
+
     while gameRunning:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 gameRunning = False
 
         screen.fill(BACKGROUND)
+
+        pygame.draw.rect(surface, White, pygame.Rect(30, 30, 60, 60))
+        pygame.draw.rect(surface, Gray, pygame.Rect(30, 30, 60, 60), 3)
+
         pygame.display.flip()
 
         clock.tick(60)
