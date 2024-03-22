@@ -1,12 +1,14 @@
 import pygame
 
-WIDTH = 1024
+WIDTH = 970
 HEIGHT = 768
 BACKGROUND = (200, 200, 200)
 
 dico = []
 White = (255, 255, 255)
 Gray = (128, 128, 128)
+
+surface = 0
 
 def compareWords(word0, word1):
     if not (len(word0) == len(word1)):
@@ -27,8 +29,13 @@ def findWord(word):
 
     return r
 
+def drawCase(x, y):
+    pygame.draw.rect(surface, White, pygame.Rect(x, y, 60, 60))
+    pygame.draw.rect(surface, Gray, pygame.Rect(x, y, 60, 60), 3)
+
 def main():
     global dico
+    global surface
 
     f = open("dico.txt", "r")
     dico = f.read().split('\n');
@@ -50,8 +57,8 @@ def main():
 
         screen.fill(BACKGROUND)
 
-        pygame.draw.rect(surface, White, pygame.Rect(30, 30, 60, 60))
-        pygame.draw.rect(surface, Gray, pygame.Rect(30, 30, 60, 60), 3)
+        for i in range(14):
+            drawCase(30 + 65 * i, 30)
 
         pygame.display.flip()
 
