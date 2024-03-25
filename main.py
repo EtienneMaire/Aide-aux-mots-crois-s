@@ -15,6 +15,10 @@ pygame.font.init()
 font = pygame.font.SysFont('Calibri', 50)
 
 textSurface = 0
+resultsTextSurface = 0
+
+results = []
+resultsText = ""
 
 def compareWords(word0, word1):
     if not (len(word0) == len(word1)):
@@ -46,10 +50,19 @@ def renderWord(screen):
         textSurface = font.render(word[i], False, (0, 0, 0))
         screen.blit(textSurface, (47 + 65 * i, 33))
 
+def renderResults(screen):
+    global resultsTextSurface
+
+    resultsText2 = resultsText.split('\n')
+    for i in range(len(resultsText2)):
+        resultsTextSurface = font.render(resultsText2[i], False, (0, 0, 0))
+        screen.blit(resultsTextSurface, (50, 100 + 50 * i))
+
 def main():
     global dico
     global surface
     global word
+    global resultsText
 
     f = open("dico.txt", "r")
     dico = f.read().split('\n');
@@ -71,7 +84,12 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    print(word)
+                    results = findWord(word)
+                    resultsText =  "Les mots correspondants sont:\n"
+
+                    for i in range(len(results)):
+                        resultsText += (results[i] + "\n")
+
                 elif event.key == pygame.K_BACKSPACE:
                     word = word[:-1]
                 else:
@@ -84,6 +102,8 @@ def main():
             drawCase(30 + 65 * i, 30)
 
         renderWord(screen)
+
+        renderResults(screen)
 
         pygame.display.flip()
 
