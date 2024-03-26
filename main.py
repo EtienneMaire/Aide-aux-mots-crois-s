@@ -10,6 +10,7 @@ dico = []
 White = (255, 255, 255)
 Gray = (128, 128, 128)
 Black = (32, 32, 32)
+LightGray = (220, 220, 220)
 
 surface = 0
 word = ""
@@ -46,6 +47,9 @@ def drawCase(x, y):
     pygame.draw.rect(surface, White, pygame.Rect(x, y, 60, 60))
     pygame.draw.rect(surface, Gray, pygame.Rect(x, y, 60, 60), 3)
 
+def drawResultsBG():
+    pygame.draw.rect(surface, LightGray, pygame.Rect(40, 100, 880, 650))
+
 def drawCursor(x, y):
     if pygame.time.get_ticks() % 1000 >= 500:
         pygame.draw.rect(surface, Black, pygame.Rect(x, y, 25, 2))
@@ -63,7 +67,7 @@ def renderResults(screen):
     resultsText2 = resultsText.split('\n')
     for i in range(len(resultsText2)):
         resultsTextSurface = font.render(resultsText2[i], False, (0, 0, 0))
-        screen.blit(resultsTextSurface, (50, 100 + 50 * i))
+        screen.blit(resultsTextSurface, (65, 120 + 50 * i))
 
 def main():
     global dico
@@ -120,6 +124,8 @@ def main():
         renderWord(screen)
         if len(word) < 14:
             drawCursor(47 + 65 * len(word), 80)
+
+        drawResultsBG()
 
         renderResults(screen)
 
