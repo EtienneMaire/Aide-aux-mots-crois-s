@@ -113,7 +113,7 @@ def main():
                 elif event.key == pygame.K_BACKSPACE:
                     word = word[:-1]
                 else:
-                    if len(word) < 14 and event.unicode in lettres:
+                    if len(word) < 14 and event.unicode.lower() in lettres:
                         word += event.unicode
 
         screen.fill(BACKGROUND)
