@@ -1,5 +1,7 @@
 import pygame
 
+lettres = "abcdefghijklmnopqrstuvwxyz*"
+
 WIDTH = 970
 HEIGHT = 768
 BACKGROUND = (200, 200, 200)
@@ -7,6 +9,7 @@ BACKGROUND = (200, 200, 200)
 dico = []
 White = (255, 255, 255)
 Gray = (128, 128, 128)
+Black = (32, 32, 32)
 
 surface = 0
 word = ""
@@ -42,6 +45,10 @@ def findWord(word):
 def drawCase(x, y):
     pygame.draw.rect(surface, White, pygame.Rect(x, y, 60, 60))
     pygame.draw.rect(surface, Gray, pygame.Rect(x, y, 60, 60), 3)
+
+def drawCursor(x, y):
+    if pygame.time.get_ticks() % 1000 >= 500:
+        pygame.draw.rect(surface, Black, pygame.Rect(x, y, 25, 2))
 
 def renderWord(screen):
     global textSurface
@@ -84,7 +91,7 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    results = findWord(word)
+                    results = findWord(word.lower())
                     resultsText =  "Les mots correspondants sont:\n"
 
                     for i in range(len(results)):
@@ -93,7 +100,7 @@ def main():
                 elif event.key == pygame.K_BACKSPACE:
                     word = word[:-1]
                 else:
-                    if len(word) < 14:
+                    if len(word) < 14 and event.unicode in lettres:
                         word += event.unicode
 
         screen.fill(BACKGROUND)
@@ -102,6 +109,8 @@ def main():
             drawCase(30 + 65 * i, 30)
 
         renderWord(screen)
+        if len(word) < 14:
+            drawCursor(47 + 65 * len(word), 80)
 
         renderResults(screen)
 
