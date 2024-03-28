@@ -88,8 +88,10 @@ def renderResults(screen):
 
     resultsText2 = resultsText.split('\n')
     for i in range(len(resultsText2)):
-        resultsTextSurface = font.render(resultsText2[i], False, themes[theme][5])
-        screen.blit(resultsTextSurface, (65, 120 + 50 * i - scroll))
+        posY = 120 + 50 * i - scroll
+        if posY > -100 and posY < 2000:
+            resultsTextSurface = font.render(resultsText2[i], False, themes[theme][5])
+            screen.blit(resultsTextSurface, (65, posY))
 
 def main():
     global dico
