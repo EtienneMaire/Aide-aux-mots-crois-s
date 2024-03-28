@@ -1,22 +1,35 @@
 import pygame
+from random import randint
 
 lettres = "abcdefghijklmnopqrstuvwxyz*"
 
 WIDTH = 970
 HEIGHT = 768
-BACKGROUND = (200, 200, 200)
 SCROLL_SPEED = 30
 
 dico = []
 White = (255, 255, 255)
 Blue = (46, 134, 193)
 Black = (32,32,32)
+Gray = (128, 128, 128)
 LightGray = (220, 220, 220)
 
-Cursor_color=Black
-BGcolor=LightGray
-Outline_color=Blue
-Box_color=White
+themes = []
+
+Cursor_color=(66, 125, 130)
+BGcolor=(0x81, 0xb7, 0xd2)
+Outline_color=(0xda, 0xf2, 0xdc)
+Box_color=(0xff, 0xcc, 0xe7)
+BACKGROUND = (0x4d, 0x51, 0x98)
+themes.append([Cursor_color, BGcolor, Outline_color, Box_color, BACKGROUND])
+
+theme = randint(0, len(themes) - 1)
+
+Cursor_color=(0, 0, 0)
+BGcolor=(0, 0, 0)
+Outline_color=(0, 0, 0)
+Box_color=(0, 0, 0)
+BACKGROUND = (0, 0, 0)
 
 surface = 0
 word = ""
@@ -52,15 +65,15 @@ def findWord(word):
     return r
 
 def drawBox(x, y):
-    pygame.draw.rect(surface, Box_color, pygame.Rect(x, y - scroll, 60, 60))
-    pygame.draw.rect(surface, Outline_color, pygame.Rect(x, y - scroll, 60, 60), 3)
+    pygame.draw.rect(surface, themes[theme][3], pygame.Rect(x, y - scroll, 60, 60))
+    pygame.draw.rect(surface, themes[theme][2], pygame.Rect(x, y - scroll, 60, 60), 3)
 
 def drawResultsBG():
-    pygame.draw.rect(surface, BGcolor, pygame.Rect(40, 100 - scroll, 880, max(650, 50 * len(resultsText.split('\n')))))
+    pygame.draw.rect(surface, themes[theme][1], pygame.Rect(40, 100 - scroll, 880, max(650, 50 * len(resultsText.split('\n')))))
 
 def drawCursor(x, y):
     if pygame.time.get_ticks() % 1000 >= 500:
-        pygame.draw.rect(surface, Cursor_color, pygame.Rect(x, y - scroll, 25, 2))
+        pygame.draw.rect(surface, themes[theme][0], pygame.Rect(x, y - scroll, 25, 2))
 
 def renderWord(screen):
     global textSurface
@@ -130,7 +143,7 @@ def main():
                     if len(word) < 14 and event.unicode.lower() in lettres:
                         word += event.unicode
 
-        screen.fill(BACKGROUND)
+        screen.fill(themes[theme][4])
 
         for i in range(14):
             drawBox(30 + 65 * i, 30)
