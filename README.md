@@ -4,6 +4,6 @@
 
 ## Dépendances
 Pour installer DECO:
-'''shell
+```shell
 pip install deco
-'''
+```
