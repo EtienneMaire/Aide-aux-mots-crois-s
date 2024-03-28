@@ -1,5 +1,11 @@
 import pygame
-from random import randint
+
+seed = 1
+
+def LCG(min, max):
+    global seed
+    seed = seed * 1103515245 + 12345
+    return int((seed % 65536) % (max - min) + min)
 
 lettres = "abcdefghijklmnopqrstuvwxyz*"
 
@@ -8,7 +14,11 @@ HEIGHT = 768
 SCROLL_SPEED = 30
 
 dico = []
-
+White = (255, 255, 255)
+Blue = (46, 134, 193)
+Black = (32,32,32)
+Gray = (128, 128, 128)
+LightGray = (220, 220, 220)
 
 themes = []
 
@@ -20,33 +30,7 @@ BACKGROUND = (93, 109, 126)
 textColor = (200, 200, 200)
 themes.append([Cursor_color, BGcolor, Outline_color, Box_color, BACKGROUND, textColor])
 
-Cursor_color=(0, 0, 0)
-BGcolor=(221, 199, 161)
-Outline_color=(51, 134, 147)
-Box_color=(255, 255, 255)
-BACKGROUND = (207, 172, 110)
-textColor = (32, 32, 32)
-themes.append([Cursor_color, BGcolor, Outline_color, Box_color, BACKGROUND, textColor])
-
-
-Cursor_color=(0, 0, 0)
-BGcolor=(216, 253, 255)
-Outline_color=(38, 50, 103)
-Box_color=(255, 255, 255)
-BACKGROUND = (241, 135, 116)
-textColor = (32, 32, 32)
-themes.append([Cursor_color, BGcolor, Outline_color, Box_color, BACKGROUND, textColor])
-
-Cursor_color=()
-BGcolor=()
-Outline_color=()
-Box_color=()
-BACKGROUND = ()
-textColor = ()
-themes.append([Cursor_color, BGcolor, Outline_color, Box_color, BACKGROUND, textColor])
-
-
-theme = randint(0, len(themes) - 1)
+theme = LCG(0, len(themes))
 
 Cursor_color=(0, 0, 0)
 BGcolor=(0, 0, 0)
