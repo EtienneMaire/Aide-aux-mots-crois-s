@@ -14,12 +14,6 @@ HEIGHT = 768
 SCROLL_SPEED = 30
 
 dico = []
-White = (255, 255, 255)
-Blue = (46, 134, 193)
-Black = (32,32,32)
-Gray = (128, 128, 128)
-LightGray = (220, 220, 220)
-
 themes = []
 
 Cursor_color=(66, 125, 130)
