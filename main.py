@@ -9,9 +9,14 @@ SCROLL_SPEED = 30
 
 dico = []
 White = (255, 255, 255)
-Gray = (128, 128, 128)
-Black = (32, 32, 32)
+Blue = (46, 134, 193)
+Black = (32,32,32)
 LightGray = (220, 220, 220)
+
+Cursor_color=Black
+BGcolor=LightGray
+Outline_color=Blue
+Box_color=White
 
 surface = 0
 word = ""
@@ -46,16 +51,16 @@ def findWord(word):
 
     return r
 
-def drawCase(x, y):
-    pygame.draw.rect(surface, White, pygame.Rect(x, y - scroll, 60, 60))
-    pygame.draw.rect(surface, Gray, pygame.Rect(x, y - scroll, 60, 60), 3)
+def drawBox(x, y):
+    pygame.draw.rect(surface, Box_color, pygame.Rect(x, y - scroll, 60, 60))
+    pygame.draw.rect(surface, Outline_color, pygame.Rect(x, y - scroll, 60, 60), 3)
 
 def drawResultsBG():
-    pygame.draw.rect(surface, LightGray, pygame.Rect(40, 100 - scroll, 880, max(650, 50 * len(resultsText.split('\n')))))
+    pygame.draw.rect(surface, BGcolor, pygame.Rect(40, 100 - scroll, 880, max(650, 50 * len(resultsText.split('\n')))))
 
 def drawCursor(x, y):
     if pygame.time.get_ticks() % 1000 >= 500:
-        pygame.draw.rect(surface, Black, pygame.Rect(x, y - scroll, 25, 2))
+        pygame.draw.rect(surface, Cursor_color, pygame.Rect(x, y - scroll, 25, 2))
 
 def renderWord(screen):
     global textSurface
@@ -128,7 +133,7 @@ def main():
         screen.fill(BACKGROUND)
 
         for i in range(14):
-            drawCase(30 + 65 * i, 30)
+            drawBox(30 + 65 * i, 30)
 
         renderWord(screen)
         if len(word) < 14:
