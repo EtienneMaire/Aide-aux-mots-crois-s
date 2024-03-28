@@ -17,11 +17,12 @@ LightGray = (220, 220, 220)
 themes = []
 
 Cursor_color=(66, 125, 130)
-BGcolor=(0x81, 0xb7, 0xd2)
-Outline_color=(0xda, 0xf2, 0xdc)
-Box_color=(0xff, 0xcc, 0xe7)
-BACKGROUND = (0x4d, 0x51, 0x98)
-themes.append([Cursor_color, BGcolor, Outline_color, Box_color, BACKGROUND])
+BGcolor=(133, 146, 158)
+Outline_color=(174, 182, 191)
+Box_color=(214, 219, 223)
+BACKGROUND = (93, 109, 126)
+textColor = (200, 200, 200)
+themes.append([Cursor_color, BGcolor, Outline_color, Box_color, BACKGROUND, textColor])
 
 theme = randint(0, len(themes) - 1)
 
@@ -87,7 +88,7 @@ def renderResults(screen):
 
     resultsText2 = resultsText.split('\n')
     for i in range(len(resultsText2)):
-        resultsTextSurface = font.render(resultsText2[i], False, (0, 0, 0))
+        resultsTextSurface = font.render(resultsText2[i], False, themes[theme][5])
         screen.blit(resultsTextSurface, (65, 120 + 50 * i - scroll))
 
 def main():
