@@ -159,23 +159,24 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    results = findWord(word.lower())
-                    if not(word in words):
-                        score += int(len(results) / word.count('*'))
-                        words.append(word)
-                    if len(results) > 1:
-                        resultsText =  f"Les mots correspondants sont \n({len(results)} mots trouvés):\n"
+                    if len(word) > 0:
+                        results = findWord(word.lower())
+                        if not(word in words):
+                            score += int(len(results) / word.count('*'))
+                            words.append(word)
+                        if len(results) > 1:
+                            resultsText =  f"Les mots correspondants sont \n({len(results)} mots trouvés):\n"
 
-                        for i in range(len(results)):
-                            resultsText += (results[i] + "\n")
+                            for i in range(len(results)):
+                                resultsText += (results[i] + "\n")
 
-                    elif len(results) == 1:
-                        resultsText =  f"Le mot correspondant est: \n"
+                        elif len(results) == 1:
+                            resultsText =  f"Le mot correspondant est: \n"
 
-                        resultsText += results[0]
+                            resultsText += results[0]
 
-                    else:
-                        resultsText =  "Aucun mot ne correspond"
+                        else:
+                            resultsText =  "Aucun mot ne correspond"
 
                 elif event.key == pygame.K_BACKSPACE:
                     word = word[:-1]
