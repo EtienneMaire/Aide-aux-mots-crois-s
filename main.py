@@ -161,7 +161,7 @@ def main():
                 if event.key == pygame.K_RETURN:
                     if len(word) > 0:
                         results = findWord(word.lower())
-                        if not(word in words):
+                        if not(word in words) and word.count('*') > 0:
                             score += int(len(results) / word.count('*'))
                             words.append(word)
                         if len(results) > 1:
