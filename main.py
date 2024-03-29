@@ -1,6 +1,7 @@
 import pygame
+import time
 
-seed = 1
+seed = int(time.time())
 
 def LCG(min, max):
     global seed
@@ -12,6 +13,8 @@ lettres = "abcdefghijklmnopqrstuvwxyz*"
 WIDTH = 970
 HEIGHT = 768
 SCROLL_SPEED = 30
+
+SCORE_OFFSET = 100
 
 dico = []
 themes = []
@@ -40,6 +43,7 @@ font = pygame.font.SysFont('Calibri', 50)
 
 textSurface = 0
 resultsTextSurface = 0
+scoreTextSurface = 0
 
 results = []
 resultsText = ""
@@ -70,7 +74,7 @@ def drawBox(x, y):
     pygame.draw.rect(surface, themes[theme][2], pygame.Rect(x, y - scroll, 60, 60), 3)
 
 def drawResultsBG():
-    pygame.draw.rect(surface, themes[theme][1], pygame.Rect(40, 100 - scroll, 880, max(650, 50 * len(resultsText.split('\n')))))
+    pygame.draw.rect(surface, themes[theme][1], pygame.Rect(40, 100 - scroll + SCORE_OFFSET, 880, max(650, 50 * len(resultsText.split('\n')))))
 
 def drawCursor(x, y):
     if pygame.time.get_ticks() % 1000 >= 500:
@@ -88,10 +92,18 @@ def renderResults(screen):
 
     resultsText2 = resultsText.split('\n')
     for i in range(len(resultsText2)):
-        posY = 120 + 50 * i - scroll
+        posY = 120 + 50 * i - scroll + SCORE_OFFSET
         if posY > -100 and posY < 2000:
             resultsTextSurface = font.render(resultsText2[i], False, themes[theme][5])
             screen.blit(resultsTextSurface, (65, posY))
+
+def drawScoreBG():
+    pygame.draw.rect(surface, themes[theme][3], pygame.Rect(40, 100 - scroll, 880, 0.9 * SCORE_OFFSET))
+    pygame.draw.rect(surface, themes[theme][2], pygame.Rect(40, 100 - scroll, 880, 0.9 * SCORE_OFFSET), 5)
+
+def drawScore(screen):
+    scoreTextSurface = font.render("Score: 0", False, (64, 64, 64))
+    screen.blit(scoreTextSurface, (65, 125 - scroll))
 
 def main():
     global dico
@@ -120,7 +132,7 @@ def main():
 
             if event.type == pygame.MOUSEWHEEL:
                 scroll -= event.y * SCROLL_SPEED
-                maxScroll = max(650, 120 + 50 * (len(resultsText.split('\n')) - 1)) - 650
+                maxScroll = max(650, 120 + 50 * (len(resultsText.split('\n')) - 1)) - 650 + SCORE_OFFSET
                 scroll = max(min(scroll, maxScroll), 0)
 
             if event.type == pygame.KEYDOWN:
@@ -158,6 +170,9 @@ def main():
         drawResultsBG()
 
         renderResults(screen)
+
+        drawScoreBG()
+        drawScore(screen)
 
         pygame.display.flip()
 
