@@ -27,6 +27,23 @@ BACKGROUND = (93, 109, 126)
 textColor = (200, 200, 200)
 themes.append([Cursor_color, BGcolor, Outline_color, Box_color, BACKGROUND, textColor])
 
+Cursor_color=(0, 0, 0)
+BGcolor=(221, 199, 161)
+Outline_color=(51, 134, 147)
+Box_color=(255, 255, 255)
+BACKGROUND = (207, 172, 110)
+textColor = (32, 32, 32)
+themes.append([Cursor_color, BGcolor, Outline_color, Box_color, BACKGROUND, textColor])
+
+
+Cursor_color=(0, 0, 0)
+BGcolor=(216, 253, 255)
+Outline_color=(38, 50, 103)
+Box_color=(255, 255, 255)
+BACKGROUND = (241, 135, 116)
+textColor = (32, 32, 32)
+themes.append([Cursor_color, BGcolor, Outline_color, Box_color, BACKGROUND, textColor])
+
 theme = LCG(0, len(themes))
 
 Cursor_color=(0, 0, 0)
