@@ -1,5 +1,6 @@
 import pygame
 import time
+from themes import themes_list
 
 seed = int(time.time())
 
@@ -17,34 +18,8 @@ SCROLL_SPEED = 30
 SCORE_OFFSET = 100
 
 dico = []
-themes = []
 
-Cursor_color=(66, 125, 130)
-BGcolor=(133, 146, 158)
-Outline_color=(174, 182, 191)
-Box_color=(214, 219, 223)
-BACKGROUND = (93, 109, 126)
-textColor = (200, 200, 200)
-themes.append([Cursor_color, BGcolor, Outline_color, Box_color, BACKGROUND, textColor])
-
-Cursor_color=(0, 0, 0)
-BGcolor=(221, 199, 161)
-Outline_color=(51, 134, 147)
-Box_color=(255, 255, 255)
-BACKGROUND = (207, 172, 110)
-textColor = (32, 32, 32)
-themes.append([Cursor_color, BGcolor, Outline_color, Box_color, BACKGROUND, textColor])
-
-
-Cursor_color=(0, 0, 0)
-BGcolor=(216, 253, 255)
-Outline_color=(38, 50, 103)
-Box_color=(255, 255, 255)
-BACKGROUND = (241, 135, 116)
-textColor = (32, 32, 32)
-themes.append([Cursor_color, BGcolor, Outline_color, Box_color, BACKGROUND, textColor])
-
-theme = LCG(0, len(themes))
+theme = LCG(0, len(themes_list))
 
 Cursor_color=(0, 0, 0)
 BGcolor=(0, 0, 0)
@@ -90,15 +65,15 @@ def findWord(word):
     return r
 
 def drawBox(x, y):
-    pygame.draw.rect(surface, themes[theme][3], pygame.Rect(x, y - scroll, 60, 60))
-    pygame.draw.rect(surface, themes[theme][2], pygame.Rect(x, y - scroll, 60, 60), 3)
+    pygame.draw.rect(surface, themes_list[theme][3], pygame.Rect(x, y - scroll, 60, 60))
+    pygame.draw.rect(surface, themes_list[theme][2], pygame.Rect(x, y - scroll, 60, 60), 3)
 
 def drawResultsBG():
-    pygame.draw.rect(surface, themes[theme][1], pygame.Rect(40, 100 - scroll + SCORE_OFFSET, 880, max(650, 50 * len(resultsText.split('\n')))))
+    pygame.draw.rect(surface, themes_list[theme][1], pygame.Rect(40, 100 - scroll + SCORE_OFFSET, 880, max(650, 50 * len(resultsText.split('\n')))))
 
 def drawCursor(x, y):
     if pygame.time.get_ticks() % 1000 >= 500:
-        pygame.draw.rect(surface, themes[theme][0], pygame.Rect(x, y - scroll, 25, 2))
+        pygame.draw.rect(surface, themes_list[theme][0], pygame.Rect(x, y - scroll, 25, 2))
 
 def renderWord(screen):
     global textSurface
@@ -114,12 +89,12 @@ def renderResults(screen):
     for i in range(len(resultsText2)):
         posY = 120 + 50 * i - scroll + SCORE_OFFSET
         if posY > -100 and posY < 2000:
-            resultsTextSurface = font.render(resultsText2[i], False, themes[theme][5])
+            resultsTextSurface = font.render(resultsText2[i], False, themes_list[theme][5])
             screen.blit(resultsTextSurface, (65, posY))
 
 def drawScoreBG():
-    pygame.draw.rect(surface, themes[theme][3], pygame.Rect(40, 100 - scroll, 880, 0.9 * SCORE_OFFSET))
-    pygame.draw.rect(surface, themes[theme][2], pygame.Rect(40, 100 - scroll, 880, 0.9 * SCORE_OFFSET), 5)
+    pygame.draw.rect(surface, themes_list[theme][3], pygame.Rect(40, 100 - scroll, 880, 0.9 * SCORE_OFFSET))
+    pygame.draw.rect(surface, themes_list[theme][2], pygame.Rect(40, 100 - scroll, 880, 0.9 * SCORE_OFFSET), 5)
 
 def drawScore(screen):
     scoreTextSurface = font.render("Score: " + str(score), False, (64, 64, 64))
@@ -161,9 +136,11 @@ def main():
                 if event.key == pygame.K_RETURN:
                     if len(word) > 0:
                         results = findWord(word.lower())
+
                         if not(word in words) and word.count('*') > 0:
                             score += int(len(results) / word.count('*'))
                             words.append(word)
+
                         if len(results) > 1:
                             resultsText =  f"Les mots correspondants sont \n({len(results)} mots trouvés):\n"
 
@@ -184,7 +161,7 @@ def main():
                     if len(word) < 14 and event.unicode.lower() in lettres:
                         word += event.unicode
 
-        screen.fill(themes[theme][4])
+        screen.fill(themes_list[theme][4])
 
         for i in range(14):
             drawBox(30 + 65 * i, 30)
