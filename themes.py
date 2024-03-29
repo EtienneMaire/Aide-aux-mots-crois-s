@@ -33,4 +33,3 @@ Box_color=(0xEA, 0xD6, 0xBD)
 BACKGROUND = (0x00, 0x14, 0x2f)
 textColor = (255, 255, 255)
 themes_list.append([Cursor_color, BGcolor, Outline_color, Box_color, BACKGROUND, textColor])
-

@@ -7,7 +7,7 @@ seed = int(time.time())
 def LCG(min, max):
     global seed
     seed = seed * 1103515245 + 12345
-    return int((seed % 65536) % (max - min) + min)
+    return int(((seed % 65536) / 32768) % (max - min) + min)
 
 lettres = "abcdefghijklmnopqrstuvwxyz*"
 
@@ -93,8 +93,8 @@ def renderResults(screen):
             screen.blit(resultsTextSurface, (65, posY))
 
 def drawScoreBG():
-    pygame.draw.rect(surface, themes_list[theme][3], pygame.Rect(40, 100 - scroll, 880, 0.9 * SCORE_OFFSET))
-    pygame.draw.rect(surface, themes_list[theme][2], pygame.Rect(40, 100 - scroll, 880, 0.9 * SCORE_OFFSET), 5)
+    pygame.draw.rect(surface, themes_list[theme][3], pygame.Rect(40, 100 - scroll, 880, int(0.9 * SCORE_OFFSET)))
+    pygame.draw.rect(surface, themes_list[theme][2], pygame.Rect(40, 100 - scroll, 880, int(0.9 * SCORE_OFFSET)), 5)
 
 def drawScore(screen):
     scoreTextSurface = font.render("Score: " + str(score), False, (64, 64, 64))
@@ -129,8 +129,6 @@ def main():
 
             if event.type == pygame.MOUSEWHEEL:
                 scroll -= event.y * SCROLL_SPEED
-                maxScroll = max(650, 120 + 50 * (len(resultsText.split('\n')) - 1)) - 650 + SCORE_OFFSET
-                scroll = max(min(scroll, maxScroll), 0)
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
@@ -157,9 +155,16 @@ def main():
 
                 elif event.key == pygame.K_BACKSPACE:
                     word = word[:-1]
+                elif event.key == pygame.K_DOWN:
+                    scroll += SCROLL_SPEED
+                elif event.key == pygame.K_UP:
+                    scroll -= SCROLL_SPEED
                 else:
                     if len(word) < 14 and event.unicode.lower() in lettres:
                         word += event.unicode
+
+            maxScroll = max(650, 120 + 50 * (len(resultsText.split('\n')) - 1)) - 650 + SCORE_OFFSET
+            scroll = max(min(scroll, maxScroll), 0)
 
         screen.fill(themes_list[theme][4])
 
