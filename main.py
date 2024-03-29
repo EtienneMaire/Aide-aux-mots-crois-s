@@ -7,7 +7,7 @@ seed = int(time.time())
 def LCG(min, max):
     global seed
     seed = seed * 1103515245 + 12345
-    return int(((seed % 65536) / 32768) % (max - min) + min)
+    return int(((seed % (2**32)) / (2**16)) % (max - min) + min)
 
 lettres = "abcdefghijklmnopqrstuvwxyz*"
 
