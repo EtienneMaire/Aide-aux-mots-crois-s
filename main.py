@@ -49,6 +49,9 @@ results = []
 resultsText = ""
 
 scroll = 0
+score = 0
+
+words = []
 
 def compareWords(word0, word1):
     if not (len(word0) == len(word1)):
@@ -102,7 +105,7 @@ def drawScoreBG():
     pygame.draw.rect(surface, themes[theme][2], pygame.Rect(40, 100 - scroll, 880, 0.9 * SCORE_OFFSET), 5)
 
 def drawScore(screen):
-    scoreTextSurface = font.render("Score: 0", False, (64, 64, 64))
+    scoreTextSurface = font.render("Score: " + str(score), False, (64, 64, 64))
     screen.blit(scoreTextSurface, (65, 125 - scroll))
 
 def main():
@@ -111,6 +114,8 @@ def main():
     global word
     global resultsText
     global scroll
+    global score
+    global words
 
     f = open("dico.txt", "r")
     dico = f.read().split('\n');
@@ -138,6 +143,9 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     results = findWord(word.lower())
+                    if not(word in words):
+                        score += int(len(results) / word.count('*'))
+                        words.append(word)
                     if len(results) > 1:
                         resultsText =  f"Les mots correspondants sont \n({len(results)} mots trouvés):\n"
 
