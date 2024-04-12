@@ -1,8 +1,7 @@
 import pygame
 import time
-from math import log
 from themes import themes_list
-
+from math import log
 seed = int(time.time())
 
 def LCG(min, max):
@@ -30,6 +29,9 @@ BACKGROUND = (0, 0, 0)
 
 surface = 0
 word = ""
+
+img = pygame.image.load('1974036.png')
+pygame.display.set_icon(img)
 
 pygame.font.init()
 font = pygame.font.SysFont('Calibri', 50)
@@ -135,11 +137,9 @@ def main():
                 if event.key == pygame.K_RETURN:
                     if len(word) > 0:
                         results = findWord(word.lower())
-
-                        x = word.count('*')
-
-                        if not(word in words) and x > 1:
-                            score += int(len(results) / log(x*x, 1.8))
+                        x= word.count('*')
+                        if not(word in words) and x > 0:
+                            score += int(len(results) / log(x*x,1.8))
                             words.append(word)
 
                         if len(results) > 1:
