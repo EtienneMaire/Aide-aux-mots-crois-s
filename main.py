@@ -2,7 +2,6 @@ import pygame
 import time
 from themes import themes_list
 from math import log
-from pathlib import Path
 import os
 seed = int(time.time())
 
