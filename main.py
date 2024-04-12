@@ -43,6 +43,8 @@ resultsText = ""
 scroll = 0
 score = 0
 
+highlightword = False
+
 words = []
 
 def compareWords(word0, word1):
@@ -65,7 +67,12 @@ def findWord(word):
     return r
 
 def drawBox(x, y):
-    pygame.draw.rect(surface, themes_list[theme][3], pygame.Rect(x, y - scroll, 60, 60))
+    color = list(themes_list[theme][3])
+    if highlightword:
+        color[0] -= 50
+        color[1] -= 50
+        color[2] -= 50
+    pygame.draw.rect(surface, tuple(color), pygame.Rect(x, y - scroll, 60, 60))
     pygame.draw.rect(surface, themes_list[theme][2], pygame.Rect(x, y - scroll, 60, 60), 3)
 
 def drawResultsBG():
@@ -108,6 +115,7 @@ def main():
     global scroll
     global score
     global words
+    global highlightword
 
     f = open("dico.txt", "r")
     dico = f.read().split('\n');
@@ -168,6 +176,8 @@ def main():
 
             maxScroll = max(650, 120 + 50 * (len(resultsText.split('\n')) - 1)) - 650 + SCORE_OFFSET
             scroll = max(min(scroll, maxScroll), 0)
+
+        highlightword = word in words
 
         screen.fill(themes_list[theme][4])
 
