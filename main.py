@@ -2,6 +2,8 @@ import pygame
 import time
 from themes import themes_list
 from math import log
+from pathlib import Path
+import os
 seed = int(time.time())
 
 def LCG(min, max):
@@ -116,6 +118,23 @@ def Save():
         f.write('\n')
     f.close()
 
+def LoadSave():
+    global words
+    global score
+
+    if not os.path.isfile("save.txt"):
+        return
+
+    f = open("save.txt", "r")
+    save = f.read().split('\n')
+    f.close()
+
+    score = save[0]
+    words = []
+
+    for i in range(1, len(save)):
+        words.append(save[i])
+
 def main():
     global dico
     global surface
@@ -127,7 +146,7 @@ def main():
     global highlightword
 
     f = open("dico.txt", "r")
-    dico = f.read().split('\n');
+    dico = f.read().split('\n')
     f.close()
 
     pygame.init()
@@ -141,6 +160,8 @@ def main():
     gameRunning = True
 
     surface = screen
+
+    LoadSave()
 
     while gameRunning:
         for event in pygame.event.get():
