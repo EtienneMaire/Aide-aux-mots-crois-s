@@ -107,6 +107,15 @@ def drawScore(screen):
     scoreTextSurface = font.render("Score: " + str(score), False, (64, 64, 64))
     screen.blit(scoreTextSurface, (65, 125 - scroll))
 
+def Save():
+    f = open("save.txt", "w")
+    f.write(str(score))
+    f.write('\n')
+    for i in words:
+        f.write(i)
+        f.write('\n')
+    f.close()
+
 def main():
     global dico
     global surface
@@ -170,6 +179,8 @@ def main():
                     scroll += SCROLL_SPEED
                 elif event.key == pygame.K_UP:
                     scroll -= SCROLL_SPEED
+                elif pygame.key.get_mods() & pygame.K_LCTRL and pygame.key.get_mods() & pygame.K_s:
+                    Save()
                 else:
                     if len(word) < 14 and event.unicode.lower() in lettres:
                         word += event.unicode
