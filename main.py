@@ -137,7 +137,7 @@ def main():
                         results = findWord(word.lower())
 
                         if not(word in words) and word.count('*') > 1:
-                            score += int(len(results) / log(word.count('*'), 1.5*))
+                            score += int(len(results) / log(word.count('*'), 1.5))
                             words.append(word)
 
                         if len(results) > 1:
