@@ -30,9 +30,6 @@ BACKGROUND = (0, 0, 0)
 surface = 0
 word = ""
 
-img = pygame.image.load('1974036.png')
-pygame.display.set_icon(img)
-
 pygame.font.init()
 font = pygame.font.SysFont('Calibri', 50)
 
@@ -121,6 +118,9 @@ def main():
     pygame.display.set_caption("Aide aux mots croisés")
     clock = pygame.time.Clock()
 
+    img = pygame.image.load('1974036.png')
+    pygame.display.set_icon(img)
+
     gameRunning = True
 
     surface = screen
@@ -137,8 +137,8 @@ def main():
                 if event.key == pygame.K_RETURN:
                     if len(word) > 0:
                         results = findWord(word.lower())
-                        x= word.count('*')
-                        if not(word in words) and x > 0:
+                        x = word.count('*')
+                        if not(word in words) and x > 1:
                             score += int(len(results) / log(x*x,1.8))
                             words.append(word)
 
