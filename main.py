@@ -45,6 +45,8 @@ resultsText = ""
 scroll = 0
 score = 0
 
+autoSave = 0
+
 highlightword = False
 
 words = []
@@ -129,7 +131,7 @@ def LoadSave():
     save = f.read().split('\n')
     f.close()
 
-    score = save[0]
+    score = int(save[0])
     words = []
 
     for i in range(1, len(save)):
